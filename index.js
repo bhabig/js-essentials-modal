@@ -55,11 +55,12 @@ function fireModal() {
 
   let titleDescription = title(index);
 
-  let modal = "<div id='modal'><div id='modal-header'><span id='close'>&times;</span><h2>" + titleDescription + "</h2></div><div id='modal-body'><img src='" + link + "'><br><p id='modal-description'>" + houseDescription + "</p></div><div id='modal-footer'><small>All House assignments are final. Don't like it? Should have been better. Try next life.</small></div></div>";
+  let modal = "<div id='modal'><div id='modal-header'><span id='close'>&times;</span><h2>" + titleDescription + "</h2></div><div id='modal-body'><img src=" + link + "><br><p id='modal-description'>" + houseDescription + "</p></div><div id='modal-footer'><small>All House assignments are final. Don't like it? Should have been better. Try next life.</small></div></div>";
 
   let body = document.querySelector('body');
 
   body.innerHTML += modal;
+  closeModal();
 }
 
 
