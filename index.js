@@ -1,30 +1,22 @@
-(function() {
-  // select button
-  let buttonOne = document.querySelector('#skill-check');
-  let buttonTwo = document.querySelector('#modal-check');
-  //create event listener for click on button
-  buttonOne.addEventListener('click', (e) => {
-    e.preventDefault();
-    mathPuzzle();
-  });
-  buttonTwo.addEventListener('click', (e) => {
-    e.preventDefault();
-    fireModal();
-  });
-}())
+let buttonOne = document.querySelector('#skill-check');
+let buttonTwo = document.querySelector('#modal-check');
 
 function mathPuzzle() {
-  let num1 = Math.floor(Math.random() * 50);
-  let num2 = Math.floor(Math.random() * 50);
-  const equationForPrompt = `(${num1} / 2) * (${num2} / 2) - 15`;
-  const equationForSolution = (num1 / 2) * (num2 / 2) - 15;
-  let solution = parseInt(prompt(`Solve this equation to enter: ${equationForPrompt}`));
+  buttonOne.addEventListener('click', function(e) {
+    e.preventDefault();
 
-  if (Math.floor(solution) === Math.floor(equationForSolution)) {
-    fireMath();
-  } else {
-    alert("This site won't be getting any more fun for you -__-");
-  }
+    let num1 = Math.floor(Math.random() * 50);
+    let num2 = Math.floor(Math.random() * 50);
+    const equationForPrompt = `(${num1} / 2) * (${num2} / 2) - 15`;
+    const equationForSolution = (num1 / 2) * (num2 / 2) - 15;
+    let solution = parseInt(prompt(`Solve this equation to enter: ${equationForPrompt}`));
+
+    if (Math.floor(solution) === Math.floor(equationForSolution)) {
+      fireMath();
+    } else {
+      alert("This site won't be getting any more fun for you -__-");
+    }
+  });
 }
 
 function fireMath() {
@@ -32,35 +24,56 @@ function fireMath() {
   let name = prompt('...and what is your name?');
   let div = document.querySelector('#post-math');
   let button = document.querySelector('#pre-math');
-  button.classList.add('math-unlock');
+  let newModalButton = document.querySelector('#modal-check');
+  button.classList.add('hidden');
   button.classList.remove('modal-button');
-  div.classList.remove('math-unlock');
-  pTag.innerHTML += `${name[0].toUpperCase()}${name.slice(1, name.legth)}, you GENIUS! Come on in`;
+  div.classList.remove('hidden');
+  newModalButton.classList.add('modal-button');
+  pTag.innerHTML += `${name[0].toUpperCase()}${name.slice(1, name.length)}, you GENIUS! Come on in`;
 }
 
 function fireModal() {
-  const images = [
-    './images/059b3019d51774cffea7e4c2c469cba2.jpg',
-    './images/gryffindor.jpg',
-    './images/hufflepuff.jpg',
-    './images/no-muggles.jpg',
-    './images/ravenclaw.jpg'
-  ];
+  buttonTwo.addEventListener('click', function(e) {
+    e.preventDefault();
 
-  let index = Math.floor(Math.random() * (5));
+    const images = [
+      './images/059b3019d51774cffea7e4c2c469cba2.jpg',
+      './images/gryffindor.jpg',
+      './images/hufflepuff.jpg',
+      './images/no-muggles.jpg',
+      './images/ravenclaw.jpg'
+    ];
 
-  let link = images[index];
+    let index = Math.floor(Math.random() * (5));
 
-  let houseDescription = description(index);
+    let link = images[index];
 
-  let titleDescription = title(index);
+    let houseDescription = description(index);
 
-  let modal = "<div id='modal'><div id='modal-header'><span id='close'>&times;</span><h2>" + titleDescription + "</h2></div><div id='modal-body'><img src=" + link + "><br><p id='modal-description'>" + houseDescription + "</p></div><div id='modal-footer'><small>All House assignments are final. Don't like it? Should have been better. Try next life.</small></div></div>";
+    let titleDescription = title(index);
 
-  let body = document.querySelector('body');
+    let modal = document.querySelector('#modal');
+    let modalHeader = document.querySelector('#modal-header h2');
+    let modalBody = document.querySelector('#modal-body');
+    let h2TitleDescription = "<h2>" + titleDescription + "</h2>";
+    let linkImg = "<img src=" + link + "><br>";
+    let pModalDescription = "<p id='modal-description'>" + houseDescription + "</p>";
 
-  body.innerHTML += modal;
-  closeModal();
+    // need to do:t modal =
+    // 1) change class of div#modal
+    modal.classList.toggle('hidden');
+    // 2) append h2 with title description to div#modal-header
+    modalHeader.innerHTML = h2TitleDescription;
+    // 3) append img tag with src of link var + br + a p#modal-description
+    modalBody.innerHTML = linkImg + pModalDescription;
+    for(let i = 0; i < modal.children.length; i++) {
+      if (modal.children[i].classList.contains('hidden')) {
+        modal.children[i].classList.toggle('hidden');
+      };
+    };
+    modal.classList.toggle('hidden');
+    closeModal();
+  });
 }
 
 
@@ -103,3 +116,26 @@ function description(index) {
       break;
   }
 }
+
+function closeModal() {
+  let body = document.querySelector('body');
+  let close = document.querySelector('#close')
+  let modal = document.querySelector('#modal')
+
+  close.addEventListener('click', function(e) {
+    e.preventDefault();
+    for(let i = 0; i < modal.children.length; i++) {
+      if (!modal.children[i].classList.contains('hidden')) {
+        modal.children[i].classList.toggle('hidden');
+      };
+    };
+  });
+  modal.classList.toggle('hidden')
+  fireModal();
+}
+
+(function() {
+  //create event listener for click on button
+  mathPuzzle();
+  fireModal();
+}());

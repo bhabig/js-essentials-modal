@@ -33,10 +33,6 @@ h1 {
         box-shadow: 0 0.5px 0 0 #000000;
 }
 
-.math-unlock {
-  display: none;
-}
-
 #line {
   border-top: 1.5px solid #f5f5f5;
   padding-top: 1.5%;
@@ -65,7 +61,7 @@ h1 {
   overflow: auto;
   background-color: #24292e;
   margin: 3% 5% 3% 5%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.35), 0 9px 30px 0 rgba(0, 0, 0, 0.19);
 }
 
 #modal-header {
@@ -74,6 +70,7 @@ h1 {
   text-align: center;
   padding: 2.5%;
   margin: 2.5% auto;
+  width: 90%;
 }
 
 #moday-body {
@@ -109,4 +106,8 @@ h1 {
     color: red;
     text-decoration: none;
     cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
